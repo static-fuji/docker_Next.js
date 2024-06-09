@@ -1,0 +1,26 @@
+version: "3"
+services:
+  next:
+    container_name: "next"
+    # Dockerfileをビルド
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+      # docekrfileに引数を渡す
+      args:
+        PROJECT_NAME: ${PROJECT_NAME}
+    volumes:
+      # バインドマウント
+      - ./:/workspace/docker
+      # 名前付きボリューム
+      - next-volume:/workspace
+
+    # 環境変数読み込み
+    env_file:
+      - .env
+    tty: true
+
+# 名前付きボリューム
+volumes:
+  next-volume:
